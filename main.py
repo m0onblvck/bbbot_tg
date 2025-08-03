@@ -1,7 +1,8 @@
 import asyncio
 import os
 from aiogram import Bot, Dispatcher, F
-from aiogram.enums import ChatMemberStatus
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ChatMemberStatus, ParseMode
 from aiogram.types import Message
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 from aiohttp import web
@@ -18,7 +19,10 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 WEBHOOK_PATH = "/webhook"
 
 # Бот и диспетчер
-bot = Bot(token=BOT_TOKEN, parse_mode="HTML")
+bot = Bot(
+    token=BOT_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+)
 dp = Dispatcher()
 
 # Проверка подписки
@@ -46,7 +50,6 @@ async def handle_group_message(message: Message):
             invite_link = f"https://t.me/{CHANNEL_USERNAME.lstrip('@')}"
             await message.answer(
                 f"👋 Привет, <a href='tg://user?id={user_id}'>котик</a>! Ты ещё не подписался на наш канал с крутыми референсами? Без подписки рисовать будет сложно! 😿\nПодпишись 👉 <a href='{invite_link}'>канал</a>",
-                parse_mode="HTML",
             )
         except Exception as e:
             print(f"Ошибка при удалении или ответе: {e}")
