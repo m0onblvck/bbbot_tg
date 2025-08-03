@@ -54,12 +54,12 @@ async def handle_group_message(message: Message):
         except Exception as e:
             print(f"Ошибка при удалении или ответе: {e}")
 
-# Установка и удаление webhook
-async def on_startup(bot: Bot):
+# Установка и удаление webhook (без bot аргумента!)
+async def on_startup(dispatcher: Dispatcher):
     await bot.set_webhook(WEBHOOK_URL + WEBHOOK_PATH)
     print("Webhook установлен.")
 
-async def on_shutdown(bot: Bot):
+async def on_shutdown(dispatcher: Dispatcher):
     await bot.delete_webhook()
     print("Webhook удалён.")
 
