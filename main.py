@@ -32,7 +32,7 @@ async def check_membership(user_id: int) -> bool:
         return member.status in {
             ChatMemberStatus.MEMBER,
             ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.OWNER,
+            ChatMemberStatus.CREATOR,
         }
     except Exception as e:
         print(f"Ошибка проверки подписки: {e}")
