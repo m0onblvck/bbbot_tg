@@ -75,4 +75,6 @@ async def main():
     return app
 
 if __name__ == "__main__":
-    web.run_app(main(), port=8080)
+    PORT = int(os.getenv("PORT", 8080))
+    app = asyncio.run(main())
+    web.run_app(app, port=PORT)
